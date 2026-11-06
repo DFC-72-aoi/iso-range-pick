@@ -108,6 +108,7 @@ FOD 介质是微软面向 OEM、批量授权与 Visual Studio 订阅等渠道提
 | [完整案例：香港繁中输入法离线安装](docs/01-case-hk-ime.md) | 从 `0x80073D01` 到 `S_OK` 的完整排障复现 |
 | [错误码对照表](docs/02-error-codes.md) | `0x80073D01` / `0x800F800B` / `0x80072EE6` 等 |
 | [概念手册](docs/03-concepts.md) | FoD、capability、LXP、WSUS、组策略、`/LimitAccess` 是什么 |
+| [参与改进](CONTRIBUTING.md) | 如何反馈问题、补充案例，以及不提交微软二进制的红线 |
 
 ---
 

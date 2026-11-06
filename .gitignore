@@ -1,0 +1,38 @@
+# ---- 法律：绝不入库的微软专有二进制 ----
+*.cab
+*.iso
+*.msu
+*.wim
+*.esd
+*.msix
+*.appx
+
+# ---- 元数据缓存 / 下载断点 / 日志 ----
+*.log
+isoblocks/
+.iso-pick-cache/
+*.progress
+*.progress.tmp
+fod-repo/
+out/
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+
+# ---- 编辑器 / 系统 ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- 本机私有内容（防止误提交） ----
+*.local
+*.private
+secrets*
+.env

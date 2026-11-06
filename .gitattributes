@@ -1,0 +1,19 @@
+# 仓库内统一用 LF 存换行，任何平台检出都保持 LF。
+# 作用：覆盖 Git for Windows 安装时写入系统配置的 core.autocrlf=true，
+# 避免 git add 时出现 "LF will be replaced by CRLF" 警告，
+# 也避免 Windows 与 Linux/macOS 贡献者之间产生整文件级别的换行差异。
+* text=auto eol=lf
+
+# 明确按二进制处理，禁止换行转换（即使将来误放入仓库）
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.cab binary
+*.iso binary
+*.msu binary
+*.wim binary
+*.esd binary
+*.msix binary
+*.appx binary

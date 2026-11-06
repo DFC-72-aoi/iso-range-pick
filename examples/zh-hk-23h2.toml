@@ -1,0 +1,55 @@
+# 案例配置：Windows 11 22H2 / 23H2，补装「繁体中文(香港特别行政区)」基本键入
+#
+# 复现命令（在本仓库根目录执行）：
+#   python tools/iso_pick.py repo --config examples/zh-hk-23h2.toml --out C:\fod-repo
+#
+# 随后用管理员 PowerShell：
+#   .\tools\install_fod.ps1 -Repo C:\fod-repo `
+#       -Capability "Language.Basic~~~zh-HK~0.0.1.0","Language.Fonts.Hant~~~und-Hant~0.0.1.0"
+#
+# 注意：URL 来自微软公开文档《Install language packs on Windows 11 Enterprise VMs
+# in Azure Virtual Desktop》，微软可能随版本更新替换链接，请以文档为准。
+
+# 顶层键：供 `fetch --config` 使用；`repo` 子命令会自动按 language/fonts 推导这些模式
+patterns = [
+    "FoDMetadata_Client.cab",
+    "metadata/*.xml.cab",
+    "Microsoft-Windows-LanguageFeatures-Basic-zh-HK-Package~*.cab",
+    "Microsoft-Windows-LanguageFeatures-Fonts-Hant-Package~*.cab",
+]
+
+[iso]
+# 适用于 Windows 11 22H2 与 23H2 的 Languages and Optional Features ISO
+url = "https://software-static.download.prss.microsoft.com/dbazure/988969d5-f34g-4e03-ac9d-1f9786c66749/22621.1.220506-1250.ni_release_amd64fre_CLIENT_LOF_PACKAGES_OEM.iso"
+# 镜像总大小 7,205,206,016 字节（约 6.71 GiB），本案例只取约 83 MiB
+root = "/LanguagesAndOptionalFeatures"
+# 直连通常比经代理快；如直连不通，取消下一行注释并改成你的代理地址
+# proxy = "http://127.0.0.1:7890"
+
+[case]
+language = "zh-HK"
+fonts = "Hant"
+os_build = "22631 (23H2)"
+# 实测结果（2026-11-05）：两个 capability 均以 S_OK 安装，无需重启
+result = "success"
+
+[capabilities]
+basic = "Language.Basic~~~zh-HK~0.0.1.0"
+fonts = "Language.Fonts.Hant~~~und-Hant~0.0.1.0"
+
+[files]
+# 取回的文件及实测大小（仅作校验参考，不是脚本硬编码值）
+basic_cab = "Microsoft-Windows-LanguageFeatures-Basic-zh-hk-Package~31bf3856ad364e35~amd64~~.cab"
+basic_size = 71922908
+fonts_cab = "Microsoft-Windows-LanguageFeatures-Fonts-Hant-Package~31bf3856ad364e35~amd64~~.cab"
+fonts_size = 13498232
+metadata_cab = "FoDMetadata_Client.cab"
+metadata_size = 423321
+compdb_count = 89
+compdb_total_size = 1199859
+
+[notes]
+# 失败链路（供排障对照）：
+# 0x80073D01  设置页下载语言功能失败 → AppX 部署被策略阻止
+# 0x800F800B  本地 FOD 仓库 CompDB 不全 → UUP 本地源解析失败
+# 0x80072EE6  CBS 回退 WU 后搜索失败（WU 被策略指向 127.0.0.1 且禁止连公网）
